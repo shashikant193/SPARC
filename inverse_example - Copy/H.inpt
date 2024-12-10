@@ -1,0 +1,50 @@
+# nprocs: 8
+TOL_PSEUDOCHARGE: 1.00E-08
+MESH_SPACING: 0.25   
+EXCHANGE_CORRELATION: GGA_PBE  
+LATVEC_SCALE: 5.991830028328245 5.991830028328245 5.991830028328245
+LATVEC:                       
+  1 0 0
+  0 1 0
+  0 0 1
+                  
+FIX_RAND: 1
+
+OFDFT_FLAG: 1
+#TOL_OFDFT: 1e-5
+OFDFT_LAMBDA: 1.0
+
+
+fname_rho_data: H.dens
+INVERSE_FLAG: 1
+Vxc_flag_inverse: 1
+VTF_flag_inverse: 0
+print_Vp_flag_inverse: 1
+read_Vp_guess_flag_inverse: 0               # 0: zero guess, 1: random guess, 2: from file
+BFGS_MAXITER_inverse: 3000
+BFGS_history_inverse: 1000
+MAXITER_KRYLOV_SCHUR_inverse: 1000
+MAXITER_CG_inverse: 3000
+TOL_CG_inverse: 1e-12
+BFGS_TOL_inverse: 1e-8
+KRYLOV_SCHUR_TOL_inverse: 1e-12
+
+                 
+     
+#ELEC_TEMP_TYPE: fermi-dirac   
+#ELEC_TEMP: 2000                            
+#KPOINT_GRID: 5 5 5    
+#KPOINT_SHIFT: 0.0 0.0 0.0    
+#TOL_SCF: 1e-6 
+#PRINT_DENSITY: 1
+
+
+
+
+                
+
+
+
+
+
+

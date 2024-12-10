@@ -1,0 +1,21 @@
+---------------------------------------
+Begin Slurm Prolog: Sep-29-2023 09:09:15
+Job ID:    987542
+User ID:   skumar416
+Account:   hive-phanish6
+Job name:  Al_DFT
+Partition: hive-interact
+---------------------------------------
+/storage/hive/project/ce-suryanarayana/skumar416/dev_SPARC_INVERSE_OFDFT/dev_SPARC-master/H_invert
+---------------------------------------
+Begin Slurm Epilog: Sep-29-2023 09:16:26
+Job ID:        987542
+Array Job ID:  _4294967294
+User ID:       skumar416
+Account:       hive-phanish6
+Job name:      Al_DFT
+Resources:     cpu=24,mem=168G,node=1
+Rsrc Used:     cput=00:28:48,vmem=7308K,walltime=00:01:12,mem=5900K,energy_used=0
+Partition:     hive-interact
+Nodes:         atl1-1-01-013-11-2
+---------------------------------------

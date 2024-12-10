@@ -1,0 +1,84 @@
+***************************************************************************
+*                       SPARC (version Sep 08, 2023)                      *
+*   Copyright (c) 2020 Material Physics & Mechanics Group, Georgia Tech   *
+*           Distributed under GNU General Public License 3 (GPL)          *
+*                   Start time: Thu Sep 28 18:50:57 2023                  *
+***************************************************************************
+                           Input parameters                                
+***************************************************************************
+LATVEC_SCALE: 5.99183002832824 5.99183002832824 5.99183002832824 
+LATVEC:
+1.000000000000000 0.000000000000000 0.000000000000000 
+0.000000000000000 1.000000000000000 0.000000000000000 
+0.000000000000000 0.000000000000000 1.000000000000000 
+FD_GRID: 24 24 24
+FD_ORDER: 12
+BC: P P P
+KPOINT_GRID: 1 1 1
+KPOINT_SHIFT: 0 0 0
+SPIN_TYP: 0
+ELEC_TEMP_TYPE: Gaussian
+SMEARING: 0.007349864435
+EXCHANGE_CORRELATION: GGA_PBE
+OFDFT_FLAG: 1
+TOL_OFDFT: 1.00E-03
+OFDFT_LAMBDA: 1
+CALC_STRESS: 0
+CALC_PRES: 0
+MAXIT_SCF: 100
+MINIT_SCF: 2
+MAXIT_POISSON: 3000
+TOL_SCF: 2.16E-04
+POISSON_SOLVER: AAR
+TOL_POISSON: 1.00E-05
+TOL_LANCZOS: 1.00E-02
+TOL_PSEUDOCHARGE: 1.00E-08
+MIXING_VARIABLE: density
+MIXING_PRECOND: kerker
+TOL_PRECOND: 6.23E-05
+PRECOND_KERKER_KTF: 1
+PRECOND_KERKER_THRESH: 0.1
+MIXING_PARAMETER: 0.3
+MIXING_HISTORY: 7
+PULAY_FREQUENCY: 1
+PULAY_RESTART: 0
+REFERENCE_CUTOFF: 0.5
+RHO_TRIGGER: 4
+FIX_RAND: 1
+VERBOSITY: 1
+PRINT_FORCES: 1
+PRINT_ATOMS: 1
+PRINT_EIGEN: 0
+PRINT_DENSITY: 0
+PRINT_ENERGY_DENSITY: 0
+OUTPUT_FILE: H
+***************************************************************************
+                                Cell                                       
+***************************************************************************
+Lattice vectors (Bohr):
+5.991830028328245 0.000000000000000 0.000000000000000 
+0.000000000000000 5.991830028328245 0.000000000000000 
+0.000000000000000 0.000000000000000 5.991830028328245 
+Volume: 2.1511884399E+02 (Bohr^3)
+Density: 3.7485326021E-02 (amu/Bohr^3), 4.2005580510E-01 (g/cc)
+***************************************************************************
+                           Parallelization                                 
+***************************************************************************
+NP_DOMAIN_PHI_PARAL: 1 1 1
+***************************************************************************
+                             Initialization                                
+***************************************************************************
+Number of processors               :  1
+Mesh spacing                       :  0.24966 (Bohr)
+Number of symmetry adapted k-points:  1
+Output printed to                  :  H.out_01
+Total number of atom types         :  1
+Total number of atoms              :  8
+Total number of electrons          :  8
+Atom type 1  (valence electrons)   :  H 1
+Pseudopotential                    :  H_loc_GGA.psp8
+Atomic mass                        :  1.007975
+Pseudocharge radii of atom type 1  :  7.24 7.24 7.24 (x, y, z dir)
+Number of atoms of type 1          :  8
+Estimated total memory usage       :  4.29 MB
+Estimated memory per processor     :  4.29 MB

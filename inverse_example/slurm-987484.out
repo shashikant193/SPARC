@@ -1,0 +1,22 @@
+---------------------------------------
+Begin Slurm Prolog: Sep-28-2023 18:09:56
+Job ID:    987484
+User ID:   skumar416
+Account:   hive-phanish6
+Job name:  Al_DFT
+Partition: hive-interact
+---------------------------------------
+/storage/hive/project/ce-suryanarayana/skumar416/dev_SPARC_INVERSE_OFDFT/dev_SPARC-master/H_invert
+srun: error: atl1-1-01-013-15-1: task 0: Exited with exit code 11
+---------------------------------------
+Begin Slurm Epilog: Sep-28-2023 18:50:58
+Job ID:        987484
+Array Job ID:  _4294967294
+User ID:       skumar416
+Account:       hive-phanish6
+Job name:      allocation
+Resources:     cpu=1,mem=7G,node=1
+Rsrc Used:     cput=00:00:01,vmem=368K,walltime=00:00:01,mem=0,energy_used=0
+Partition:     hive-interact
+Nodes:         atl1-1-01-013-15-1
+---------------------------------------
