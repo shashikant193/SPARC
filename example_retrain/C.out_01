@@ -1,0 +1,125 @@
+***************************************************************************
+*                       SPARC (version June 16, 2024)                      *
+*   Copyright (c) 2020 Material Physics & Mechanics Group, Georgia Tech   *
+*           Distributed under GNU General Public License 3 (GPL)          *
+*                   Start time: Fri Jul 26 22:53:26 2024                  *
+***************************************************************************
+                           Input parameters                                
+***************************************************************************
+CELL: 50 50 8.0006348158 
+LATVEC:
+1.000000000000000 0.000000000000000 0.000000000000000 
+0.000000000000000 1.000000000000000 0.000000000000000 
+0.000000000000000 0.000000000000000 1.000000000000000 
+FD_GRID: 286 286 46
+FD_ORDER: 12
+BC: P P P
+KPOINT_GRID: 1 1 12
+KPOINT_SHIFT: 0 0 0.5
+SPIN_TYP: 0
+ELEC_TEMP_TYPE: Fermi-Dirac
+ELEC_TEMP: 315.775024804068
+EXCHANGE_CORRELATION: LDA_PZ
+NSTATES: 197
+CHEB_DEGREE: 38
+CHEFSI_BOUND_FLAG: 0
+CALC_STRESS: 1
+TWTIME: 1E+09
+MD_FLAG: 1
+MD_METHOD: NVE
+MD_TIMESTEP: 1
+MD_NSTEP: 1
+ION_VEL_DSTR: 2
+ION_VEL_DSTR_RAND: 0
+ION_TEMP: 315
+MAXIT_SCF: 100
+MINIT_SCF: 2
+MAXIT_POISSON: 3000
+TOL_SCF: 1.00E-04
+POISSON_SOLVER: AAR
+TOL_POISSON: 1.00E-06
+TOL_LANCZOS: 1.00E-02
+TOL_PSEUDOCHARGE: 1.00E-07
+MIXING_VARIABLE: density
+MIXING_PRECOND: kerker
+TOL_PRECOND: 3.05E-05
+PRECOND_KERKER_KTF: 1
+PRECOND_KERKER_THRESH: 0.1
+MIXING_PARAMETER: 0.3
+MIXING_HISTORY: 7
+PULAY_FREQUENCY: 1
+PULAY_RESTART: 0
+REFERENCE_CUTOFF: 0.5
+RHO_TRIGGER: 4
+NUM_CHEFSI: 1
+FIX_RAND: 0
+MLFF_FLAG: 21
+MLFF_INITIAL_STEPS_TRAIN: 7
+MLFF_IF_ATOM_DATA_AVAILABLE: 0
+MLFF_hnl_FILE: ./hnl_N_8.txt
+MLFF_MODEL_FOLDER: ./
+MLFF_DESCRIPTOR_TYPE: 0
+MLFF_PRINT_FLAG: 1
+MLFF_RADIAL_BASIS: 8
+MLFF_ANGULAR_BASIS: 6
+MLFF_MAX_STR_STORE: 500
+MLFF_MAX_CONFIG_STORE: 5000
+MLFF_RCUT_SOAP: 10.000000
+MLFF_KERNEL_TYPE: 0
+MLFF_WT_THREE_BODY_SOAP: 1.000000
+MLFF_REGUL_MIN: 1.00E-14
+MLFF_FACTOR_MULTIPLY_SIGMATOL: 1.001000
+MLFF_IF_SPARSIFY_BEFORE_TRAIN: 1
+MLFF_EXPONENT_SOAP: 4.000000
+MLFF_TOL_FORCE: 5.00E-10
+MLFF_SCALE_FORCE: 100.000000
+MLFF_SCALE_STRESS: 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+VERBOSITY: 1
+PRINT_FORCES: 1
+PRINT_ATOMS: 1
+PRINT_EIGEN: 0
+PRINT_DENSITY: 0
+PRINT_MDOUT: 1
+PRINT_VELS: 1
+PRINT_RESTART: 1
+PRINT_RESTART_FQ: 1
+PRINT_ENERGY_DENSITY: 0
+OUTPUT_FILE: C
+***************************************************************************
+                                Cell                                       
+***************************************************************************
+Lattice vectors (Bohr):
+50.000000000000000 0.000000000000000 0.000000000000000 
+0.000000000000000 50.000000000000000 0.000000000000000 
+0.000000000000000 0.000000000000000 8.000634815800000 
+Volume: 2.0001587039E+04 (Bohr^3)
+Density: 4.8038588043E-02 (amu/Bohr^3), 5.3831431973E-01 (g/cc)
+***************************************************************************
+                           Parallelization                                 
+***************************************************************************
+NP_SPIN_PARAL: 1
+NP_KPOINT_PARAL: 6
+NP_BAND_PARAL: 4
+NP_DOMAIN_PARAL: 1 1 1
+NP_DOMAIN_PHI_PARAL: 4 6 1
+EIG_SERIAL_MAXNS: 1500
+***************************************************************************
+                             Initialization                                
+***************************************************************************
+Number of processors               :  24
+Mesh spacing in x-direction        :  0.174825 (Bohr)
+Mesh spacing in y-direction        :  0.174825 (Bohr)
+Mesh spacing in z-direction        :  0.173927 (Bohr)
+Number of symmetry adapted k-points:  6
+Output printed to                  :  C.out_01
+MD output printed to               :  C.aimd_01
+Total number of atom types         :  1
+Total number of atoms              :  80
+Total number of electrons          :  320
+Atom type 1  (valence electrons)   :  C 4
+Pseudopotential                    :  C.psp8
+Atomic mass                        :  12.0106
+Pseudocharge radii of atom type 1  :  6.64 6.64 6.61 (x, y, z dir)
+Number of atoms of type 1          :  80
+Estimated total memory usage       :  474.71 GB
+Estimated memory per processor     :  19.78 GB

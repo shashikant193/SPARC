@@ -1,0 +1,61 @@
+:Description: 
+
+:Desc_R: Atom positions in Cartesian coordinates. Unit=Bohr 
+:Desc_V: Atomic velocities in Cartesian coordinates. Unit=Bohr/atu 
+     where atu is the atomic unit of time, hbar/Ha 
+:Desc_F: Atomic forces in Cartesian coordinates. Unit=Ha/Bohr 
+:Desc_MDTM: MD time. Unit=second 
+:Desc_TEL: Electronic temperature. Unit=Kelvin 
+:Desc_TIO: Ionic temperature. Unit=Kelvin 
+:Desc_TEN: Total energy. TEN = KEN + FEN. Unit=Ha/atom 
+:Desc_KEN: Ionic kinetic energy. Unit=Ha/atom 
+:Desc_KENIG: Kinetic energy: 3/2 N k T of ideal gas at temperature T = TIO. Unit=Ha/atom 
+     where N = number of particles, k = Boltzmann constant
+:Desc_FEN: Free energy F = U - TS. FEN = UEN + TSEN. Unit=Ha/atom 
+:Desc_UEN: Internal energy. Unit=Ha/atom 
+:Desc_TSEN: Electronic entropic contribution -TS to free energy F = U - TS. Unit=Ha/atom 
+:Desc_STRESS: Stress, excluding ion-kinetic contribution. Unit=GPa(all periodic),Ha/Bohr**2(surface),Ha/Bohr(wire) 
+:Desc_STRIO: Ion-kinetic stress in cartesian coordinate. Unit=GPa(all periodic),Ha/Bohr**2(surface),Ha/Bohr(wire) 
+:Desc_ST: (DEBUG mode only) Tags ending in 'ST' describe statistics. Printed are the mean and standard deviation, respectively. 
+:Desc_AVGV: Average of the speed of all ions of the same type. Unit=Bohr/atu 
+:Desc_MAXV: Maximum of the speed of all ions of the same type. Unit=Bohr/atu 
+:Desc_MIND: Minimum of the distance of all ions of the same type. Unit=Bohr 
+
+
+:MDSTEP: 1
+:MDTM: 2021.17
+:TWIST: 1.38362381110483
+:TEL: 315.775024804068
+:TIO: 315
+:TEN:  -5.7143022575E+00
+:KEN:   7.4815923187E-04
+:KENIG:  1.4963184637E-03
+:FEN:  -5.7150504168E+00
+:UEN:  -5.7150504168E+00
+:TSEN:  0.0000000000E+00
+:R:
+  1.5439138723E+01   0.0000000000E+00   0.0000000000E+00
+  8.8329884813E+00   1.2662753215E+01   1.9050000000E-01
+:V:
+ -1.3571927010E-05   2.5996528541E-04  -2.4034767991E-05
+  1.3571927010E-05  -2.5996528541E-04   2.4034767991E-05
+:F:
+  1.8042750326E-03   5.4738543614E-04   4.9573887483E-04
+ -9.8724010898E-05   3.6854113059E-04  -4.9573887483E-04
+:STRIO:
+ -1.3278214779E-04 
+:STRESS:
+ -5.2825059759E-04 
+:TELST:   3.1577502480E+02   0.0000000000E+00
+:TIOST:   3.1500000000E+02   0.0000000000E+00
+:TENST:  -5.7143022575E+00   0.0000000000E+00
+:KENST:   7.4815923187E-04   0.0000000000E+00
+:FENST:  -5.7150504168E+00   0.0000000000E+00
+:UENST:  -5.7150504168E+00   0.0000000000E+00
+:TSENST:   0.0000000000E+00   0.0000000000E+00
+:AVGV:
+   2.6142650381E-04
+:MAXV:
+   2.6142650381E-04
+:MIND:
+C - C:   1.4283656054E+01

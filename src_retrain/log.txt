@@ -1,0 +1,33 @@
+
+Cannot open file "C.inpt"
+
+USAGE:
+    mpirun -np <nproc> {SPARCROOT}/lib/sparc -name <filename>
+
+    {SPARCROOT} is the location of the SPARC folder
+
+REQUIRED ARGUMENT:
+    -name <filename>
+           The filename shared by .inpt file and .ion
+           file (without extension)
+
+OPTIONS: 
+    -h, --help
+           Display help (from command line).
+    -n <number of Nodes>
+    -c <number of CPUs per node>
+    -a <number of Accelerators (e.g., GPUs) per node>
+
+EXAMPLE:
+
+    mpirun -np 8 {SPARCROOT}/lib/sparc -name test
+
+    The example command runs sparc with 8 cores, with input file named
+    test.inpt, and ion file named test.ion.
+
+NOTE: 
+    This is a short description of the usage of SPARC. For a detailed 
+    discription, refer to the manual online at
+
+        https://github.com/SPARC-X/SPARC/tree/master/doc 
+

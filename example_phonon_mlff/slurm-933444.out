@@ -1,0 +1,23 @@
+---------------------------------------
+Begin Slurm Prolog: Aug-02-2024 02:08:45
+Job ID:    933444
+User ID:   skumar416
+Account:   gts-phanish6-coda20
+Job name:  MLFF_hugoniot
+Partition: cpu-large
+QOS:       inferno
+---------------------------------------
+/storage/scratch1/5/skumar416/JMPS_run/SOURCE_CODE/FINAL_DOS_run/15_9/unrelaxed/zero_twist/qvec1
+---------------------------------------
+Begin Slurm Epilog: Aug-02-2024 02:43:20
+Job ID:        933444
+Array Job ID:  _4294967294
+User ID:       skumar416
+Account:       gts-phanish6-coda20
+Job name:      MLFF_hugoniot
+Resources:     cpu=2,mem=40G,node=1
+Rsrc Used:     cput=01:09:10,vmem=17740K,walltime=00:34:35,mem=7124K,energy_used=0
+Partition:     cpu-large
+QOS:           inferno
+Nodes:         atl1-1-02-004-4-1
+---------------------------------------

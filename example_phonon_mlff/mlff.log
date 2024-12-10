@@ -1,0 +1,13 @@
+--------------------------------------------------------------------------------------------
+MD step: 0
+MLFF object intialized. Time taken: 0.106 s
+Existing MLFF ref-atom file read. Time taken: 0.055 s
+MLFF ref-atom read data broadcasted. Time taken: 0.001 s
+--------------------------------------------------------------------------------------------
+MD step: 0
+Neighbor list and soap descriptor done! Time taken: 0.003 s
+Kpredict calculation done done! Time taken: 0.003 s
+prediction and gather done! Time taken: 0.007 s
+Prediction from MLFF done! Time taken: 0.013 s
+--------------------------------------------------------------------------------------------
+MLFF model prediction for E, F, stress done. Time taken: 2021.009 s

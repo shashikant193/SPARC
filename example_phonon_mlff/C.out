@@ -1,0 +1,143 @@
+***************************************************************************
+*                       SPARC (version June 16, 2024)                      *
+*   Copyright (c) 2020 Material Physics & Mechanics Group, Georgia Tech   *
+*           Distributed under GNU General Public License 3 (GPL)          *
+*                   Start time: Fri Aug  2 02:09:38 2024                  *
+***************************************************************************
+                           Input parameters                                
+***************************************************************************
+CELL: 20 2.09439510239319 0.5715 
+TWIST_ANGLE: 1.383624 
+FD_GRID: 133 216 81
+FD_ORDER: 12
+BC: D C H
+KPOINT_GRID: 1 3 34300
+KPOINT_SHIFT: 0 0 0
+SPIN_TYP: 0
+ELEC_TEMP_TYPE: Fermi-Dirac
+ELEC_TEMP: 315.775024804068
+EXCHANGE_CORRELATION: LDA_PZ
+NSTATES: 9
+CHEB_DEGREE: 120
+CHEFSI_BOUND_FLAG: 0
+CALC_STRESS: 1
+TWTIME: 1E+09
+MD_FLAG: 1
+MD_METHOD: NVE
+MD_TIMESTEP: 1
+MD_NSTEP: 1
+ION_VEL_DSTR: 2
+ION_VEL_DSTR_RAND: 0
+ION_TEMP: 315
+MAXIT_SCF: 100
+MINIT_SCF: 2
+MAXIT_POISSON: 3000
+TOL_SCF: 1.00E-06
+POISSON_SOLVER: AAR
+TOL_POISSON: 1.00E-08
+TOL_LANCZOS: 1.00E-02
+TOL_PSEUDOCHARGE: 1.00E-08
+MIXING_VARIABLE: density
+MIXING_PRECOND: kerker
+TOL_PRECOND: 9.75E-08
+PRECOND_KERKER_KTF: 1
+PRECOND_KERKER_THRESH: 0.1
+MIXING_PARAMETER: 0.3
+MIXING_HISTORY: 7
+PULAY_FREQUENCY: 1
+PULAY_RESTART: 0
+REFERENCE_CUTOFF: 0.5
+RHO_TRIGGER: 4
+NUM_CHEFSI: 1
+FIX_RAND: 0
+MLFF_FLAG: 21
+MLFF_INITIAL_STEPS_TRAIN: 7
+MLFF_IF_ATOM_DATA_AVAILABLE: 0
+MLFF_hnl_FILE: ../../../../../hnl_N8_L6_Rc10_N100.txt
+MLFF_MODEL_FOLDER: ../../../../../merged_model_DCH_DCP/
+MLFF_DESCRIPTOR_TYPE: 0
+MLFF_PRINT_FLAG: 1
+MLFF_RADIAL_BASIS: 8
+MLFF_ANGULAR_BASIS: 6
+MLFF_MAX_STR_STORE: 500
+MLFF_MAX_CONFIG_STORE: 5000
+MLFF_RCUT_SOAP: 10.000000
+MLFF_KERNEL_TYPE: 0
+MLFF_WT_THREE_BODY_SOAP: 1.000000
+MLFF_REGUL_MIN: 1.00E-14
+MLFF_FACTOR_MULTIPLY_SIGMATOL: 1.001000
+MLFF_IF_SPARSIFY_BEFORE_TRAIN: 1
+MLFF_EXPONENT_SOAP: 4.000000
+MLFF_TOL_FORCE: 5.00E-10
+MLFF_SCALE_FORCE: 100.000000
+MLFF_SCALE_STRESS: 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
+MLFF_PHONON_FLAG: 1
+VERBOSITY: 1
+PRINT_FORCES: 1
+PRINT_ATOMS: 1
+PRINT_EIGEN: 0
+PRINT_DENSITY: 0
+PRINT_MDOUT: 1
+PRINT_VELS: 1
+PRINT_RESTART: 1
+PRINT_RESTART_FQ: 1
+PRINT_ENERGY_DENSITY: 0
+OUTPUT_FILE: C
+***************************************************************************
+                                Cell                                       
+***************************************************************************
+Volume :  3.6959655410E+02 (Bohr^3)
+Density: 6.4993030194E-02 (amu/Bohr^3), 7.2830364632E-01 (g/cc)
+***************************************************************************
+                           Parallelization                                 
+***************************************************************************
+NP_SPIN_PARAL: 1
+NP_KPOINT_PARAL: 1
+NP_BAND_PARAL: 2
+NP_DOMAIN_PARAL: 1 1 1
+NP_DOMAIN_PHI_PARAL: 1 2 1
+EIG_SERIAL_MAXNS: 1500
+WARNING: Default parallelization not used. This could result in degradation of performance.
+***************************************************************************
+                             Initialization                                
+***************************************************************************
+Number of processors               :  2
+Mesh spacing in x-direction        :  0.150376 (Bohr)
+Mesh spacing in y-direction        :  0.00969627 (Bohr)
+Mesh spacing in z-direction        :  0.00705556 (Bohr)
+Output printed to                  :  C.out
+MD output printed to               :  C.aimd
+Total number of atom types         :  1
+Total number of atoms              :  2
+Total number of electrons          :  8
+Atom type 1  (valence electrons)   :  C 4
+Pseudopotential                    :  /storage/scratch1/5/skumar416/JMPS_run/SOURCE_CODE/C.psp8
+Atomic mass                        :  12.0106
+Pseudocharge radii of atom type 1  :  10.08 7.63 12.00 (x, y, z dir)
+Number of atoms of type 1          :  2
+Estimated total memory usage       :  17.38 TB
+Estimated memory per processor     :  8.69 TB
+====================================================================
+                Energy and force calculation (MLFF #1)                 
+====================================================================
+Free energy per atom               : -5.7150504168E+00 (Ha/atom)
+Total free energy                  : -1.1430100834E+01 (Ha)
+RMS force                          :  1.2875618301E-03 (Ha/Bohr)
+Maximum force                      :  1.9495630897E-03 (Ha/Bohr)
+Maximum Stress                     :  5.2825059759E-04 (Ha/Bohr^n) (n = periodicity order)
+MD step time                       :  2021.173 (sec)
+***************************************************************************
+                               Timing info                                 
+***************************************************************************
+Total walltime                     :  2070.215 sec
+___________________________________________________________________________
+
+***************************************************************************
+*             Material Physics & Mechanics Group, Georgia Tech            *
+*                       PI: Phanish Suryanarayana                         *
+*               List of contributors: See the documentation               *
+*         Citation: See README.md or the documentation for details        *
+*  Acknowledgements: U.S. DOE SC (DE-SC0019410), U.S. DOE NNSA (ASC)      *
+*      {Preliminary developments: U.S. NSF (1333500,1663244,1553212)}     *
+***************************************************************************
+                                                                           

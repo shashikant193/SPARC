@@ -1,0 +1,821 @@
+diff mlff/linearsys.c mlff_abhiraj/linearsys.c
+431,432d430
+< 	
+< 
+475,476c473,474
+< 		for (int i = 0; i < soap_str->natom_domain; i++){
+< 			idx = soap_str->atom_idx_domain[i];
+---
+> 		for (int i = 0; i < mlff_str->natom_domain; i++){
+> 			idx = mlff_str->atom_idx_domain[i];
+483,484c481,482
+< 		for (int i = 0; i < soap_str->natom_domain; i++){
+< 			idx = soap_str->atom_idx_domain[i];
+---
+> 		for (int i = 0; i < mlff_str->natom_domain; i++){
+> 			idx = mlff_str->atom_idx_domain[i];
+491,503d488
+< 	if (rank==0){
+< 		mlff_str->variable_type_identifier[mlff_str->n_rows] = 0;
+< 
+< 		for (int i = 0; i < mlff_str->stress_len; i++){
+< 			mlff_str->variable_type_identifier[mlff_str->n_rows+1+i] = 2+i;
+< 		}
+< 
+< 		for (int i = 0; i < 3*soap_str->natom_domain; i++){
+< 			mlff_str->variable_type_identifier[mlff_str->n_rows+1+ mlff_str->stress_len+ i] = 1;
+< 		}
+< 		
+< 	}
+< 
+519,520c504,505
+< 	X2_local = (double *) malloc(sizeof(double)*size_X2*soap_str->natom_domain);
+< 	X3_local = (double *) malloc(sizeof(double)*size_X3*soap_str->natom_domain);
+---
+> 	X2_local = (double *) malloc(sizeof(double)*size_X2*mlff_str->natom_domain);
+> 	X3_local = (double *) malloc(sizeof(double)*size_X3*mlff_str->natom_domain);
+522c507
+< 	for (int i=0; i < soap_str->natom_domain; i++){
+---
+> 	for (int i=0; i < mlff_str->natom_domain; i++){
+532c517
+< 	MPI_Allgather(&soap_str->natom_domain, 1, MPI_INT, local_natoms, 1, MPI_INT, MPI_COMM_WORLD);
+---
+> 	MPI_Allgather(&mlff_str->natom_domain, 1, MPI_INT, local_natoms, 1, MPI_INT, MPI_COMM_WORLD);
+547,548c532,533
+< 	MPI_Allgatherv(X2_local, size_X2*soap_str->natom_domain, MPI_DOUBLE, X2_gathered, recvcounts_X2, displs_X2, MPI_DOUBLE, MPI_COMM_WORLD);
+< 	MPI_Allgatherv(X3_local, size_X3*soap_str->natom_domain, MPI_DOUBLE, X3_gathered, recvcounts_X3, displs_X3, MPI_DOUBLE, MPI_COMM_WORLD);
+---
+> 	MPI_Allgatherv(X2_local, size_X2*mlff_str->natom_domain, MPI_DOUBLE, X2_gathered, recvcounts_X2, displs_X2, MPI_DOUBLE, MPI_COMM_WORLD);
+> 	MPI_Allgatherv(X3_local, size_X3*mlff_str->natom_domain, MPI_DOUBLE, X3_gathered, recvcounts_X3, displs_X3, MPI_DOUBLE, MPI_COMM_WORLD);
+789,790c774,781
+< 
+< 
+---
+> 	// double *stress;
+> 	// stress = (double *)malloc(6*sizeof(double));
+> 	// stress[0] = stress1[0];
+> 	// stress[1] = stress1[3];
+> 	// stress[2] = stress1[5];
+> 	// stress[3] = stress1[1];
+> 	// stress[4] = stress1[4];
+> 	// stress[5] = stress1[2];
+802c793,798
+< 
+---
+>     // mlff_str->stress0_store[mlff_str->E_store_counter] = stress[0] * (mlff_str->stress_len == 6 ? au2GPa : 1.0);
+> 	// mlff_str->stress1_store[mlff_str->E_store_counter] = stress[1] * (mlff_str->stress_len == 6 ? au2GPa : 1.0);
+> 	// mlff_str->stress2_store[mlff_str->E_store_counter] = stress[2] * (mlff_str->stress_len == 6 ? au2GPa : 1.0);
+> 	// mlff_str->stress3_store[mlff_str->E_store_counter] = stress[3] * (mlff_str->stress_len == 6 ? au2GPa : 1.0);
+> 	// mlff_str->stress4_store[mlff_str->E_store_counter] = stress[4] * (mlff_str->stress_len == 6 ? au2GPa : 1.0);
+> 	// mlff_str->stress5_store[mlff_str->E_store_counter] = stress[5] * (mlff_str->stress_len == 6 ? au2GPa : 1.0);
+825,837d820
+< 
+< 
+< 	if (rank==0){
+< 		mlff_str->variable_type_identifier[mlff_str->n_rows] = 0;
+< 		for (int i = 0; i < mlff_str->stress_len; i++){
+< 			mlff_str->variable_type_identifier[mlff_str->n_rows+1+i] = 2+i;
+< 		}
+< 		for (int i = 0; i < 3*soap_str->natom_domain; i++){
+< 			mlff_str->variable_type_identifier[mlff_str->n_rows+1+ mlff_str->stress_len+ i] = 1;
+< 		}
+< 	}
+< 
+< 
+841a825
+> 
+849c833
+< 			idx = soap_str->atom_idx_domain[i];
+---
+> 			idx = mlff_str->atom_idx_domain[i];
+856c840
+< 			idx = soap_str->atom_idx_domain[i];
+---
+> 			idx = mlff_str->atom_idx_domain[i];
+863d846
+< 	
+1296c1279
+<     
+---
+> 
+1329d1311
+< 	
+diff mlff/mlff_types.h mlff_abhiraj/mlff_types.h
+263d262
+<   int *variable_type_identifier;
+diff mlff/regression.c mlff_abhiraj/regression.c
+39a40
+>     	// fp_mlff = fopen("mlff.log","a");
+50,52d50
+<     // printf("mlff_str->nelem: %d,  mlff_str->natm_train_elemwise[i]: %d, mlff_str->natm_train_total: %d\n", mlff_str->nelem,  mlff_str->natm_train_elemwise[0],
+<     // 	mlff_str->natm_train_total );
+< 
+80d77
+< 
+86c83,86
+< 
+---
+> // #ifdef DEBUG
+> //     	if (rank==0)
+> //     		printf("For element %d, CUR removed %d columns out of a total of %d columns\n",i,ncols_to_remove,mlff_str->natm_train_elemwise[i]);
+> // #endif
+93c93,98
+< 
+---
+> // #ifdef DEBUG
+> //     	if (rank==0){
+> //     		print_dyarray(&highrank_ID_descriptors[i]);
+> //     		printf("\n");
+> //     	}
+> // #endif
+111d115
+<     		// printf("count1: %d, ncols_to_remove: %d,  mlff_str->natm_train_elemwise[i]: %d\n", count1, ncols_to_remove, mlff_str->natm_train_elemwise[i]);
+114c118,122
+< 
+---
+> // #ifdef DEBUG
+> //     	if (rank==0){
+> //     		printf("columns to be removed\n");
+> //     	}
+> // #endif
+120c128,132
+<   		
+---
+> // #ifdef DEBUG    		
+> //     		if (rank==0){
+> //     			printf("%d ",cols_to_remove[k]);
+> //     		}
+> // #endif    		
+123c135,139
+< 
+---
+> // #ifdef DEBUG 
+> //     	if (rank==0){
+> //     		printf("\n");
+> //     	}
+> // #endif 
+197c213
+< 
+---
+> 	
+202,204c218
+< 			// int quot = i%(1+mlff_str->stress_len+3*mlff_str->natom_domain);
+< 			int quot = mlff_str->variable_type_identifier[i];
+< 			// printf("i: %d, quot: %d, m: %d\n", i, quot, m);
+---
+> 			int quot = i%(1+mlff_str->stress_len+3*mlff_str->natom_domain);
+208,210c222,224
+< 			} else if (quot>=2) {
+< 				scale = mlff_str->stress_scale[quot-2]* mlff_str->relative_scale_stress[quot-2];
+< 				b_scaled[i] = (1.0/mlff_str->std_stress[quot-2])*(mlff_str->b_no_norm[i])* mlff_str->relative_scale_stress[quot-2];
+---
+> 			} else if (quot>0 && quot < 1+mlff_str->stress_len) {
+> 				scale = mlff_str->stress_scale[quot-1]* mlff_str->relative_scale_stress[quot-1];
+> 				b_scaled[i] = (1.0/mlff_str->std_stress[quot-1])*(mlff_str->b_no_norm[i])* mlff_str->relative_scale_stress[quot-1];
+405,406d418
+< 
+< 
+409,433d420
+< 
+< 	double *error_E_collect;
+< 	int E_count = 0;
+< 	int F_count = 0;
+< 	double *error_F_collect;
+< 
+< 	if (rank==0){
+< 		for (int i=0; i < mlff_str->n_rows; i++){
+< 			int quot = mlff_str->variable_type_identifier[i];
+< 			if (quot==0){
+< 				E_count++;
+< 			} else if (quot>=2){
+< 				2+2;
+< 			} else {
+< 				F_count++;
+< 			}
+< 		}
+< 	} else {
+< 		F_count = mlff_str->n_rows;
+< 	}
+< 
+< 	error_E_collect = (double *)malloc(sizeof(double)*E_count);
+< 	error_F_collect = (double *)malloc(sizeof(double)*F_count);
+< 
+< 
+440,443d426
+< 
+< 	int counter_E = 0;
+< 	int counter_F = 0;
+< 
+452d434
+< 	    	
+454c436
+< 	    		int quot = mlff_str->variable_type_identifier[i];
+---
+> 	    		int quot = i%(1+3*mlff_str->natom_domain+mlff_str->stress_len);
+457,458d438
+< 	    			error_E_collect[counter_E] = error_b_scaled[i];
+< 	    			counter_E++;
+462,465c442,445
+< 	    		} else if (quot>=2){
+< 	    			error_b_scaled[i] = error_b_scaled[i] * mlff_str->std_stress[quot-2] / mlff_str->relative_scale_stress[quot-2];
+< 	    			if (error_b_scaled[i] > error_train_stress[quot-2]){
+< 	    				error_train_stress[quot-2] = error_b_scaled[i];
+---
+> 	    		} else if (quot>0 && quot < 1+mlff_str->stress_len){
+> 	    			error_b_scaled[i] = error_b_scaled[i] * mlff_str->std_stress[quot-1] / mlff_str->relative_scale_stress[quot-1];
+> 	    			if (error_b_scaled[i] > error_train_stress[quot-1]){
+> 	    				error_train_stress[quot-1] = error_b_scaled[i];
+469,470d448
+< 	    			error_F_collect[counter_F] = error_b_scaled[i];
+< 	    			counter_F++;
+479,480d456
+< 	    		error_F_collect[counter_F] = error_b_scaled[i];
+< 	    		counter_F++;
+491,492d466
+< 	
+< 
+497,542d470
+< 
+< 	// char fn[] = "check.txt";
+< 	// char new_fn[512];
+< 	// sprintf(new_fn, "%s_%d", fn, rank);
+< 	// FILE *fpn = fopen(new_fn,"w");
+< 
+< 	// for (int i = 0; i < F_count; i++){
+< 	// 	fprintf(fpn, "%f\n",error_F_collect[i]);
+< 	// }
+< 	// fclose(fpn);
+< 	
+< 
+< 
+< 
+< 	double Fsum_local = 0.0, Fsum2_local, Fsum, Fsum2;
+< 
+< 	for (int i = 0; i < F_count; i++){
+< 		Fsum_local += error_F_collect[i];
+< 		Fsum2_local += error_F_collect[i]*error_F_collect[i];
+< 	}
+< 
+< 
+< 	MPI_Allreduce(&Fsum_local, &Fsum, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
+< 	MPI_Allreduce(&Fsum2_local, &Fsum2, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
+< 
+< 	int Ftotal_terms;
+< 	MPI_Allreduce(&F_count, &Ftotal_terms, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+< 	// printf("rank: %d, F_count: %d, Ftotal_terms: %d\n", rank, F_count, Ftotal_terms);
+< 
+< 
+< 	double F_error_avg = Fsum/(Ftotal_terms*1.0);
+< 	double F_error_rms = sqrt(Fsum2/(Ftotal_terms*1.0));
+< 
+< 	double E_sum = 0.0, E_sum2=0.0, E_error_avg, E_error_rms;
+< 
+< 	if (rank==0){
+< 		for (int i = 0; i < E_count; i++){
+< 			E_sum += error_E_collect[i];
+< 			E_sum2 += error_E_collect[i]*error_E_collect[i];
+< 		}
+< 		E_error_avg = E_sum/E_count;
+< 		E_error_rms = sqrt(E_sum2/E_count);
+< 	}
+< 
+< 
+< 
+558,575d485
+< 		fprintf(fp_mlff, "-------------------------------------------------------------------------------------------------------------\n");
+< 		fprintf(fp_mlff, "-------------------------------------------------------------------------------------------------------------\n");
+< 		fprintf(fp_mlff, "Training errors Summary\n");
+< 		fprintf(fp_mlff, "Energy train error (max): %.6E\n", mlff_str->error_train_E);
+< 		fprintf(fp_mlff, "Force train error (max): %.6E\n", mlff_str->error_train_F);
+< 
+< 		fprintf(fp_mlff, "Energy train error (avg): %.6E\n", E_error_avg);
+< 		fprintf(fp_mlff, "Energy train error (RMS): %.6E\n", E_error_rms);
+< 		fprintf(fp_mlff, "Force train error (avg): %.6E\n", F_error_avg);
+< 		fprintf(fp_mlff, "Force train error (RMS): %.6E\n", F_error_rms);
+< 
+< 		fprintf(fp_mlff, "Stress train error:\n");
+< 		for (int i=0; i < mlff_str->stress_len; i++){
+< 			fprintf(fp_mlff, "%.6E ", mlff_str->error_train_stress[i]);
+< 		}
+< 		fprintf(fp_mlff, "\n");
+< 		fprintf(fp_mlff, "-------------------------------------------------------------------------------------------------------------\n");
+< 		fprintf(fp_mlff, "-------------------------------------------------------------------------------------------------------------\n");
+578,579d487
+< 	free(error_E_collect);
+< 	free(error_F_collect);
+Only in mlff: soap_descriptor.c
+diff mlff/sparc_mlff_interface.c mlff_abhiraj/sparc_mlff_interface.c
+30d29
+< #include "mlff_merge.h"
+278,279d276
+< 	mlff_str->variable_type_identifier = (int *) calloc(K_size_row, sizeof(int));
+< 
+396d392
+< 	free(mlff_str->variable_type_identifier);
+430d425
+< 		
+438a434
+> 	
+440,443c436
+< 	int merge_flag = 0;
+< 	if (merge_flag == 1){
+< 		MLFF_merge(pSPARC, mlff_str);
+< 	} else {
+---
+> 	
+445,452c438,445
+< 		if (pSPARC->mlff_flag==1 ) {
+< 			intialize_print_MLFF(mlff_str, pSPARC);
+< 	t1 = MPI_Wtime();
+< 			Calculate_electronicGroundState(pSPARC);
+< 	t2 = MPI_Wtime();
+< 			if (pSPARC->print_mlff_flag == 1 && rank ==0){
+< 				fprintf(fp_mlff, "DFT call done for the first MD. Time taken: %.3f s\n", t2-t1);
+< 			}
+---
+> 	if (pSPARC->mlff_flag==1) {
+> 		intialize_print_MLFF(mlff_str, pSPARC);
+> t1 = MPI_Wtime();
+> 		Calculate_electronicGroundState(pSPARC);
+> t2 = MPI_Wtime();
+> 		if (pSPARC->print_mlff_flag == 1 && rank ==0){
+> 			fprintf(fp_mlff, "DFT call done for the first MD. Time taken: %.3f s\n", t2-t1);
+> 		}
+454,455c447,448
+< 		    MPI_Bcast(pSPARC->forces, 3*pSPARC->n_atom, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+< 		    MPI_Bcast(pSPARC->stress, 6, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+---
+> 	    MPI_Bcast(pSPARC->forces, 3*pSPARC->n_atom, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+> 	    MPI_Bcast(pSPARC->stress, 6, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+456a450
+> 		if(pSPARC->MDFlag == 1)
+458,467c452,454
+< 			if(pSPARC->cell_typ != 0){
+< 		    	coordinatetransform_map(pSPARC, pSPARC->n_atom, pSPARC->atom_pos);
+< 		    }
+< 
+< 	t1 = MPI_Wtime();		
+< 			sparc_mlff_interface_firstMD(pSPARC, mlff_str);
+< 	t2 = MPI_Wtime();
+< 			if (pSPARC->print_mlff_flag == 1 && rank ==0){
+< 				fprintf(fp_mlff, "Covariance matrices formed from first MD DFT data. Time taken: %.3f s\n", t2-t1);
+< 			}
+---
+> 		if(pSPARC->cell_typ != 0){
+> 	    	coordinatetransform_map(pSPARC, pSPARC->n_atom, pSPARC->atom_pos);
+> 	    }
+469,472c456,461
+< 			if(pSPARC->cell_typ != 0){
+< 				for(int i = 0; i < pSPARC->n_atom; i++)
+< 		    		nonCart2Cart_coord(pSPARC, &pSPARC->atom_pos[3*i], &pSPARC->atom_pos[3*i+1], &pSPARC->atom_pos[3*i+2]);	
+< 			}
+---
+> t1 = MPI_Wtime();		
+> 		sparc_mlff_interface_firstMD(pSPARC, mlff_str);
+> t2 = MPI_Wtime();
+> 		if (pSPARC->print_mlff_flag == 1 && rank ==0){
+> 			fprintf(fp_mlff, "Covariance matrices formed from first MD DFT data. Time taken: %.3f s\n", t2-t1);
+> 		}
+474,494c463,466
+< 		} else {
+< 	t1 = MPI_Wtime();	
+< 			if (!rank){
+< 				read_MLFF_files(mlff_str, pSPARC);
+< 			}
+< 	t2 = MPI_Wtime();
+< 			if (pSPARC->print_mlff_flag == 1 && rank ==0){
+< 				fprintf(fp_mlff, "Existing MLFF ref-atom file read. Time taken: %.3f s\n", t2-t1);
+< 			}
+< 	t1 = MPI_Wtime();
+< 			MPI_Bcast(&mlff_str->n_cols, 1, MPI_INT, 0, MPI_COMM_WORLD);
+< 			MPI_Bcast(&mlff_str->n_str, 1, MPI_INT, 0, MPI_COMM_WORLD);
+< 			MPI_Bcast(mlff_str->weights, mlff_str->n_cols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+< 			MPI_Bcast(&mlff_str->mu_E, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+< 			MPI_Bcast(&mlff_str->std_E, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+< 			MPI_Bcast(&mlff_str->std_F, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+< 			//MPI_Bcast(&mlff_str->mu_stress, 6, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+< 			MPI_Bcast(mlff_str->std_stress, mlff_str->stress_len, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+< 			MPI_Bcast(&mlff_str->E_scale, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+< 			MPI_Bcast(&mlff_str->F_scale, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+< 			MPI_Bcast(mlff_str->stress_scale, mlff_str->stress_len, MPI_DOUBLE, 0, MPI_COMM_WORLD); 
+---
+> 		if(pSPARC->cell_typ != 0){
+> 			for(int i = 0; i < pSPARC->n_atom; i++)
+> 	    		nonCart2Cart_coord(pSPARC, &pSPARC->atom_pos[3*i], &pSPARC->atom_pos[3*i+1], &pSPARC->atom_pos[3*i+2]);	
+> 		}
+496,497c468,488
+< 		
+< 			MPI_Bcast(&mlff_str->n_str, 1, MPI_INT, 0, MPI_COMM_WORLD);
+---
+> 	} else {
+> t1 = MPI_Wtime();	
+> 		if (!rank){
+> 			read_MLFF_files(mlff_str, pSPARC);
+> 		}
+> t2 = MPI_Wtime();
+> 		if (pSPARC->print_mlff_flag == 1 && rank ==0){
+> 			fprintf(fp_mlff, "Existing MLFF ref-atom file read. Time taken: %.3f s\n", t2-t1);
+> 		}
+> t1 = MPI_Wtime();
+> 		MPI_Bcast(&mlff_str->n_cols, 1, MPI_INT, 0, MPI_COMM_WORLD);
+> 		MPI_Bcast(&mlff_str->n_str, 1, MPI_INT, 0, MPI_COMM_WORLD);
+> 		MPI_Bcast(mlff_str->weights, mlff_str->n_cols, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+> 		MPI_Bcast(&mlff_str->mu_E, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+> 		MPI_Bcast(&mlff_str->std_E, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+> 		MPI_Bcast(&mlff_str->std_F, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+> 		//MPI_Bcast(&mlff_str->mu_stress, 6, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+> 		MPI_Bcast(mlff_str->std_stress, mlff_str->stress_len, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+> 		MPI_Bcast(&mlff_str->E_scale, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+> 		MPI_Bcast(&mlff_str->F_scale, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+> 		MPI_Bcast(mlff_str->stress_scale, mlff_str->stress_len, MPI_DOUBLE, 0, MPI_COMM_WORLD); 
+499,500c490,491
+< 			
+< 			MPI_Bcast(mlff_str->natm_train_elemwise, pSPARC->Ntypes, MPI_INT, 0, MPI_COMM_WORLD);
+---
+> 	
+> 		MPI_Bcast(&mlff_str->n_str, 1, MPI_INT, 0, MPI_COMM_WORLD);
+502,504c493,494
+< 			
+< 			MPI_Bcast(&mlff_str->n_rows, 1, MPI_INT, 0, MPI_COMM_WORLD);
+< 			MPI_Bcast(&mlff_str->natm_train_total, 1, MPI_INT, 0, MPI_COMM_WORLD);
+---
+> 		
+> 		MPI_Bcast(mlff_str->natm_train_elemwise, pSPARC->Ntypes, MPI_INT, 0, MPI_COMM_WORLD);
+506c496,498
+< 			
+---
+> 		
+> 		MPI_Bcast(&mlff_str->n_rows, 1, MPI_INT, 0, MPI_COMM_WORLD);
+> 		MPI_Bcast(&mlff_str->natm_train_total, 1, MPI_INT, 0, MPI_COMM_WORLD);
+508,512c500
+< 			
+< 			for (int i=0; i < mlff_str->n_cols; i++){
+< 				MPI_Bcast(mlff_str->X2_traindataset[i], mlff_str->size_X2, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+< 				MPI_Bcast(mlff_str->X3_traindataset[i], mlff_str->size_X3, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+< 			}
+---
+> 		
+513a502,506
+> 		
+> 		for (int i=0; i < mlff_str->n_cols; i++){
+> 			MPI_Bcast(mlff_str->X2_traindataset[i], mlff_str->size_X2, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+> 			MPI_Bcast(mlff_str->X3_traindataset[i], mlff_str->size_X3, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+> 		}
+516,522d508
+< 			
+< 			MPI_Bcast(&mlff_str->relative_scale_F, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+< 			MPI_Bcast(mlff_str->natm_typ_train, mlff_str->n_cols, MPI_INT, 0, MPI_COMM_WORLD);
+< 	t2 = MPI_Wtime();
+< 			if (pSPARC->print_mlff_flag == 1 && rank ==0){
+< 				fprintf(fp_mlff, "MLFF ref-atom read data broadcasted. Time taken: %.3f s\n", t2-t1);
+< 			}
+523a510,516
+> 		
+> 		MPI_Bcast(&mlff_str->relative_scale_F, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+> 		MPI_Bcast(mlff_str->natm_typ_train, mlff_str->n_cols, MPI_INT, 0, MPI_COMM_WORLD);
+> t2 = MPI_Wtime();
+> 		if (pSPARC->print_mlff_flag == 1 && rank ==0){
+> 			fprintf(fp_mlff, "MLFF ref-atom read data broadcasted. Time taken: %.3f s\n", t2-t1);
+> 		}
+526,536d518
+< 			if (pSPARC->mlff_flag==21){
+< 	t1 = MPI_Wtime();			
+< 				MLFF_call_from_MD_only_predict(pSPARC, mlff_str);
+< 	t2 = MPI_Wtime();
+< 				if (pSPARC->print_mlff_flag == 1 && rank ==0){
+< 					fprintf(fp_mlff, "MLFF model prediction for E, F, stress done. Time taken: %.3f s\n", t2-t1);
+< 				}
+< 				if(pSPARC->cell_typ != 0){
+< 		        	for(int i = 0; i < pSPARC->n_atom; i++)
+< 		            	nonCart2Cart_coord(pSPARC, &pSPARC->atom_pos[3*i], &pSPARC->atom_pos[3*i+1], &pSPARC->atom_pos[3*i+2]);	
+< 				}
+537a520,531
+> 		if (pSPARC->mlff_flag==21){
+> t1 = MPI_Wtime();			
+> 			MLFF_call_from_MD_only_predict(pSPARC, mlff_str);
+> t2 = MPI_Wtime();
+> 			if (pSPARC->print_mlff_flag == 1 && rank ==0){
+> 				fprintf(fp_mlff, "MLFF model prediction for E, F, stress done. Time taken: %.3f s\n", t2-t1);
+> 			}
+> 			if(pSPARC->cell_typ != 0){
+> 	        	for(int i = 0; i < pSPARC->n_atom; i++)
+> 	            	nonCart2Cart_coord(pSPARC, &pSPARC->atom_pos[3*i], &pSPARC->atom_pos[3*i+1], &pSPARC->atom_pos[3*i+2]);	
+> 			}
+> 			if(pSPARC->MDFlag == 1)
+539,565c533,559
+< 			} else if (pSPARC->mlff_flag ==22){
+< 				char *fname_str;
+< 				fname_str = (char *) malloc(sizeof(char)*512);
+< 				char str1[512] = "MLFF_data_reference_structures.txt"; 
+< 				strcpy(fname_str, str1);
+< 
+< 				double **cell_data;
+< 				double **LatUVec_data;
+< 				double **apos_data; 
+< 				double *Etot_data;
+< 				double **F_data;
+< 				double **stress_data;
+< 				int *natom_data;
+< 				int **natom_elem_data;
+< 
+< 				natom_data = (int *) malloc(sizeof(int)*mlff_str->n_str);
+< 				Etot_data = (double *) malloc(sizeof(double)*mlff_str->n_str);
+< 				cell_data = (double **) malloc(sizeof(double*)*mlff_str->n_str);
+< 				LatUVec_data = (double **) malloc(sizeof(double*)*mlff_str->n_str);
+< 				stress_data = (double **) malloc(sizeof(double*)*mlff_str->n_str);
+< 				natom_elem_data = (int **) malloc(sizeof(int*)*mlff_str->n_str);
+< 				for (int i = 0; i < mlff_str->n_str; i++){
+< 					cell_data[i] = (double *) malloc(sizeof(double)*3);
+< 					LatUVec_data[i] = (double *) malloc(sizeof(double)*9);
+< 					stress_data[i] = (double *) malloc(sizeof(double)*6);
+< 					natom_elem_data[i] = (int *) malloc(sizeof(int)*pSPARC->Ntypes);
+< 				}
+---
+> 		} else if (pSPARC->mlff_flag ==22){
+> 			char *fname_str;
+> 			fname_str = (char *) malloc(sizeof(char)*512);
+> 			char str1[512] = "MLFF_data_reference_structures.txt"; 
+> 			strcpy(fname_str, str1);
+> 
+> 			double **cell_data;
+> 			double **LatUVec_data;
+> 			double **apos_data; 
+> 			double *Etot_data;
+> 			double **F_data;
+> 			double **stress_data;
+> 			int *natom_data;
+> 			int **natom_elem_data;
+> 
+> 			natom_data = (int *) malloc(sizeof(int)*mlff_str->n_str);
+> 			Etot_data = (double *) malloc(sizeof(double)*mlff_str->n_str);
+> 			cell_data = (double **) malloc(sizeof(double*)*mlff_str->n_str);
+> 			LatUVec_data = (double **) malloc(sizeof(double*)*mlff_str->n_str);
+> 			stress_data = (double **) malloc(sizeof(double*)*mlff_str->n_str);
+> 			natom_elem_data = (int **) malloc(sizeof(int*)*mlff_str->n_str);
+> 			for (int i = 0; i < mlff_str->n_str; i++){
+> 				cell_data[i] = (double *) malloc(sizeof(double)*3);
+> 				LatUVec_data[i] = (double *) malloc(sizeof(double)*9);
+> 				stress_data[i] = (double *) malloc(sizeof(double)*6);
+> 				natom_elem_data[i] = (int *) malloc(sizeof(int)*pSPARC->Ntypes);
+> 			}
+567c561
+< 				
+---
+> 			
+570,578c564,571
+< 	t1 = MPI_Wtime();
+< 				if (rank==0){
+< 					apos_data = (double **) malloc(sizeof(double*)*mlff_str->n_str);
+< 					F_data = (double **) malloc(sizeof(double*)*mlff_str->n_str);
+< 					read_structures_MLFF_data(mlff_str->ref_str_name, mlff_str->n_str, pSPARC->Ntypes, cell_data, LatUVec_data, apos_data, Etot_data, F_data, stress_data, natom_data, natom_elem_data);
+< 					if(pSPARC->cell_typ != 0){
+< 						for (int istr = 0; istr < mlff_str->n_str; istr++){
+< 							coordinatetransform_map(pSPARC, natom_data[istr], apos_data[istr]);
+< 						}
+---
+> t1 = MPI_Wtime();
+> 			if (rank==0){
+> 				apos_data = (double **) malloc(sizeof(double*)*mlff_str->n_str);
+> 				F_data = (double **) malloc(sizeof(double*)*mlff_str->n_str);
+> 				read_structures_MLFF_data(mlff_str->ref_str_name, mlff_str->n_str, pSPARC->Ntypes, cell_data, LatUVec_data, apos_data, Etot_data, F_data, stress_data, natom_data, natom_elem_data);
+> 				if(pSPARC->cell_typ != 0){
+> 					for (int istr = 0; istr < mlff_str->n_str; istr++){
+> 						coordinatetransform_map(pSPARC, natom_data[istr], apos_data[istr]);
+580a574
+> 			}
+582,587c576,579
+< 	t2 = MPI_Wtime();
+< 				if (pSPARC->print_mlff_flag == 1 && rank ==0){
+< 					fprintf(fp_mlff, "Read structures data from the exisiting MLFF model. Time taken: %.3f s\n", t2-t1);
+< 				}
+< 
+< 				
+---
+> t2 = MPI_Wtime();
+> 			if (pSPARC->print_mlff_flag == 1 && rank ==0){
+> 				fprintf(fp_mlff, "Read structures data from the exisiting MLFF model. Time taken: %.3f s\n", t2-t1);
+> 			}
+588a581
+> 			
+590,595d582
+< 	t1 = MPI_Wtime();
+< 				pretrain_MLFF_model(mlff_str, pSPARC, cell_data, LatUVec_data, apos_data, Etot_data, F_data, stress_data, natom_data, natom_elem_data);
+< 	t2 = MPI_Wtime();
+< 				if (pSPARC->print_mlff_flag == 1 && rank ==0){
+< 					fprintf(fp_mlff, "Pretraining from the exisiting data done. Time taken: %.3f s\n", t2-t1);
+< 				}
+596a584,589
+> t1 = MPI_Wtime();
+> 			pretrain_MLFF_model(mlff_str, pSPARC, cell_data, LatUVec_data, apos_data, Etot_data, F_data, stress_data, natom_data, natom_elem_data);
+> t2 = MPI_Wtime();
+> 			if (pSPARC->print_mlff_flag == 1 && rank ==0){
+> 				fprintf(fp_mlff, "Pretraining from the exisiting data done. Time taken: %.3f s\n", t2-t1);
+> 			}
+598,605d590
+< 	t1 = MPI_Wtime();
+< 				Calculate_electronicGroundState(pSPARC);
+< 	t2 = MPI_Wtime();
+< 				if (pSPARC->print_mlff_flag == 1 && rank ==0){
+< 					fprintf(fp_mlff, "DFT call made after pretraining. Time taken: %.3f s\n", t2-t1);
+< 				}
+< 			    MPI_Bcast(pSPARC->forces, 3*pSPARC->n_atom, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+< 			    MPI_Bcast(pSPARC->stress, 6, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+607c592,599
+< 			    
+---
+> t1 = MPI_Wtime();
+> 			Calculate_electronicGroundState(pSPARC);
+> t2 = MPI_Wtime();
+> 			if (pSPARC->print_mlff_flag == 1 && rank ==0){
+> 				fprintf(fp_mlff, "DFT call made after pretraining. Time taken: %.3f s\n", t2-t1);
+> 			}
+> 		    MPI_Bcast(pSPARC->forces, 3*pSPARC->n_atom, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+> 		    MPI_Bcast(pSPARC->stress, 6, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+608a601,602
+> 		    
+> 			if(pSPARC->MDFlag == 1)
+610,617c604,610
+< 				if(pSPARC->cell_typ != 0){
+< 		    		coordinatetransform_map(pSPARC, pSPARC->n_atom, pSPARC->atom_pos);
+< 		   		}
+< 				init_dyarray(&mlff_str->atom_idx_addtrain);
+< 				for (int i = 0; i < pSPARC->n_atom; i++){
+< 					append_dyarray(&(mlff_str->atom_idx_addtrain),i);
+< 				}
+< 
+---
+> 			if(pSPARC->cell_typ != 0){
+> 	    		coordinatetransform_map(pSPARC, pSPARC->n_atom, pSPARC->atom_pos);
+> 	   		}
+> 			init_dyarray(&mlff_str->atom_idx_addtrain);
+> 			for (int i = 0; i < pSPARC->n_atom; i++){
+> 				append_dyarray(&(mlff_str->atom_idx_addtrain),i);
+> 			}
+619,624d611
+< 	t1 = MPI_Wtime();
+< 				sparc_mlff_interface_initialMD(pSPARC, mlff_str);
+< 	t2 = MPI_Wtime();
+< 				if (pSPARC->print_mlff_flag == 1 && rank ==0){
+< 					fprintf(fp_mlff, "Covariance matrices formed after the DFT call. Time taken: %.3f s\n", t2-t1);
+< 				}
+626,627c613,618
+< 				
+< 				
+---
+> t1 = MPI_Wtime();
+> 			sparc_mlff_interface_initialMD(pSPARC, mlff_str);
+> t2 = MPI_Wtime();
+> 			if (pSPARC->print_mlff_flag == 1 && rank ==0){
+> 				fprintf(fp_mlff, "Covariance matrices formed after the DFT call. Time taken: %.3f s\n", t2-t1);
+> 			}
+629,634c620,621
+< 	t1 = MPI_Wtime();
+< 				mlff_train_Bayesian(mlff_str);
+< 	t2 = MPI_Wtime();
+< 				if (pSPARC->print_mlff_flag == 1 && rank ==0){
+< 					fprintf(fp_mlff, "MLFF model trained with Bayesian regression. Time taken: %.3f s\n", t2-t1);
+< 				}
+---
+> 			
+> 			
+635a623,628
+> t1 = MPI_Wtime();
+> 			mlff_train_Bayesian(mlff_str);
+> t2 = MPI_Wtime();
+> 			if (pSPARC->print_mlff_flag == 1 && rank ==0){
+> 				fprintf(fp_mlff, "MLFF model trained with Bayesian regression. Time taken: %.3f s\n", t2-t1);
+> 			}
+637,638d629
+< 				pSPARC->last_train_MD_iter = 0;
+< 				delete_dyarray(&mlff_str->atom_idx_addtrain);
+639a631,632
+> 			pSPARC->last_train_MD_iter = 0;
+> 			delete_dyarray(&mlff_str->atom_idx_addtrain);
+642,643d634
+< 				// MPI_Barrier(MPI_COMM_WORLD);
+< 				// exit(3);
+645,653c636,637
+< 				for (int i = 0; i < mlff_str->n_str-1; i++){
+< 					if(rank == 0){
+< 						free(apos_data[i]); // Check this for memory leak
+< 						free(F_data[i]);   // Check this for memory leak
+< 					}
+< 					free(cell_data[i]);
+< 					free(LatUVec_data[i]);
+< 					free(stress_data[i]);
+< 					free(natom_elem_data[i]);
+---
+> 			// MPI_Barrier(MPI_COMM_WORLD);
+> 			// exit(3);
+654a639,642
+> 			for (int i = 0; i < mlff_str->n_str-1; i++){
+> 				if(rank == 0){
+> 					free(apos_data[i]); // Check this for memory leak
+> 					free(F_data[i]);   // Check this for memory leak
+655a644,647
+> 				free(cell_data[i]);
+> 				free(LatUVec_data[i]);
+> 				free(stress_data[i]);
+> 				free(natom_elem_data[i]);
+657,661c649
+< 				
+< 				if (rank == 0) {
+< 					free(apos_data);   // Check this for memory leak
+< 					free(F_data);     // Check this for memory leak	
+< 				}
+---
+> 			}
+663,666c651,655
+< 				free(cell_data);
+< 				free(LatUVec_data);
+< 				free(stress_data);
+< 				free(natom_elem_data);
+---
+> 			
+> 			if (rank == 0) {
+> 				free(apos_data);   // Check this for memory leak
+> 				free(F_data);     // Check this for memory leak	
+> 			}
+668,669c657,660
+< 				free(Etot_data);
+< 				free(natom_data);
+---
+> 			free(cell_data);
+> 			free(LatUVec_data);
+> 			free(stress_data);
+> 			free(natom_elem_data);
+671,674c662,663
+< 				if(pSPARC->cell_typ != 0){
+< 					for(int i = 0; i < pSPARC->n_atom; i++)
+< 		    			nonCart2Cart_coord(pSPARC, &pSPARC->atom_pos[3*i], &pSPARC->atom_pos[3*i+1], &pSPARC->atom_pos[3*i+2]);	
+< 				}
+---
+> 			free(Etot_data);
+> 			free(natom_data);
+675a665,667
+> 			if(pSPARC->cell_typ != 0){
+> 				for(int i = 0; i < pSPARC->n_atom; i++)
+> 	    			nonCart2Cart_coord(pSPARC, &pSPARC->atom_pos[3*i], &pSPARC->atom_pos[3*i+1], &pSPARC->atom_pos[3*i+2]);	
+677,679d668
+< 		}  
+< 	
+< 	}	
+681c670,676
+< }
+---
+> 		}
+> 	}  
+> 	
+> 	// if (pSPARC->print_mlff_flag == 1 && rank ==0){
+> 	// 	// fprintf(fp_mlff,"--------------------------------------------------------------------------------------------\n");
+> 	// 	fclose(fp_mlff);
+> 	// }
+683a679
+> }
+886,888d881
+< 
+< 
+< 
+1127,1128c1120,1122
+< #endif		
+< 		if (max_pred_error >= pSPARC->F_tol_SOAP){	
+---
+> #endif
+> 		int Count_MD = pSPARC->MDCount + pSPARC->restartCount + (pSPARC->RestartFlag == 0);
+> 		if (max_pred_error >= pSPARC->F_tol_SOAP || !(Count_MD % pSPARC->MLFF_DFT_fq)){	
+2067c2061
+<         fprintf(output_fp,"                Energy and force calculation (MLFF #%d)                 \n", pSPARC->MDCount + pSPARC->restartCount + (pSPARC->RestartFlag == 0));
+---
+>         fprintf(output_fp,"                Energy and force calculation (MLFF #%d)                 \n", pSPARC->MDCount + pSPARC->RelaxCount + pSPARC->restartCount + (pSPARC->RestartFlag == 0));
+2154,2155d2147
+< 	index[0] = 5;
+< 
+diff mlff/sparsification.c mlff_abhiraj/sparsification.c
+43,46c43
+< 	int rank, nprocs;
+<     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+< 
+< 
+---
+> 	
+65a63,73
+> 	// FILE* fid;
+> 	// fid = fopen('Ktemp.txt','w');
+> 	// for (int i=0; i < n_descriptor; i++){
+> 	// 	for (int j = 0; j < n_descriptor; j++){
+> 	// 			fprintf(fid,"%10.9f ",K[i*n_descriptor + j]);
+> 	// 	}
+> 	// 	fprintf(fid,"\n");
+> 	// }
+> 	// fclose(fid);
+> 
+> 
+93,99d100
+< 
+< 
+<  //    char fn[] = "desc.txt";
+< 	// char new_fn[512];
+< 	// sprintf(new_fn, "%s_%d", fn, rank);
+< 	// FILE *fpn = fopen(new_fn,"w");
+< 

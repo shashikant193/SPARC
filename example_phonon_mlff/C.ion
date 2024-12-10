@@ -1,0 +1,6 @@
+ATOM_TYPE: C                               # atom type
+N_TYPE_ATOM: 2                            # number of atoms of this type
+PSEUDO_POT: /storage/scratch1/5/skumar416/JMPS_run/SOURCE_CODE/C.psp8     # pseudopotential
+COORD_FRAC:
+   0.771956936147208                   0                   0
+   0.771956936147208   0.333333333333333   0.333333333333334
